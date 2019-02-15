@@ -24,3 +24,14 @@ const importTags = (function(htmlImports) {
 
 window.addEventListener('DOMContentLoaded', importTags);
 ```
+
+Para recuperar os dados você pode selecionar o elemento template e então pegar o seu contúdo:
+
+```
+const template = document.querySelector(‘#myFirstWebcomponentID’);
+let content = template.content;
+```
+
+
+Para entender melhor como Html Imports funcionam por favor acesse minha publicação no Medium: [Web Components Nativos, o que tem pra janta?](https://medium.com/@evertonthepaula/web-components-nativos-o-que-tem-pra-janta-f2706e90a673
+)
