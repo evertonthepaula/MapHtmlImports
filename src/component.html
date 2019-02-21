@@ -1,0 +1,29 @@
+<template id="myFirstWebcomponent">
+    <style>
+        h3{
+            color: #ff9100;
+            font-size: 2rem;
+        }
+    </style>
+
+    <h3>Hello world!</h3>
+    <slot></slot>
+</template>
+        
+<script>
+    class CustomElementClass extends HTMLElement
+    {
+        constructor()
+        {
+            super();
+            const template = document.currentScript.ownerDocument.querySelector('template');
+            const dataMode = this.dataset.mode;
+            const shadowRoot = this.attachShadow({mode: dataMode});
+            shadowRoot.appendChild(template.content.cloneNode(true));
+        }
+    }
+    if(!'customElements' in window) {
+        console.error( new Error('Seu browser não suporta a customElements') );
+    }
+    customElements.define('custom-element', CustomElementClass);
+</script>
