@@ -19,8 +19,8 @@ class htmlImports {
         tag.rel = 'import';
         tag.href = obj.path;
         tag.setAttribute('async', 'async');
-        tag.onload = function(e) { console.log('deu certo!')};
-        tag.onerror = function(e) { console.log('ZICOU!');};
+        tag.onload = obj.callBackSuccess;
+        tag.onerror = obj.callBackError;
         document.head.appendChild(tag);
         return tag;
     }
