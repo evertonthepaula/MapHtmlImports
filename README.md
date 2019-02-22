@@ -1,5 +1,5 @@
 # MapHtmlImports
-Lib para auxiliar projetos a criar componentes usando html imports.
+script para auxiliar projetos a criar componentes usando HTML imports.
 
 ### Modo de usar
 
