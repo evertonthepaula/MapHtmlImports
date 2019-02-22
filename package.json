@@ -1,0 +1,27 @@
+{
+  "name": "maphtmlimports",
+  "version": "1.0.0",
+  "description": "Lib para auxiliar projetos a criar componentes usando html imports.",
+  "main": "bootstrap.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "server": "nodemon bootstrap.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evertonthepaula/MapHtmlImports.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evertonthepaula/MapHtmlImports/issues"
+  },
+  "homepage": "https://github.com/evertonthepaula/MapHtmlImports#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10"
+  }
+}

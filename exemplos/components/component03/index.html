@@ -1,0 +1,21 @@
+<template id="mythirdWebcomponent">
+    
+    <link href="/components/component03/index.css" rel="stylesheet" type="text/css"> <!-- ISTO GERA UMA NOVA REQUISIÇÃO -->
+    
+    <h3>Hello world!</h3>
+    <slot></slot>
+
+    <script src="/components/component03/scopeGlobal.js"></script> <!-- ISTO GERA UMA NOVA REQUISIÇÃO -->
+</template>
+
+<script src="index.js"></script> <!-- ISTO GERA UMA NOVA REQUISIÇÃO -->
+
+
+<!---------------------------------------
+    Observações importantes:
+-----------------------------------------
+
+- A classe JS que cria seu componente não pode ficar dentro do seu template.
+- Todos os scripts carregados dentro da tag template fazem referência a Window.
+- Portanto o scripts que manipulam eventos e comportamentos do seu componente devem extender a classe que cria o componente.
+- Qualquer arquivo externo representa uma nova requisição de arquivo ao servidor

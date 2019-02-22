@@ -25,13 +25,29 @@ const importTags = (function(htmlImports) {
 window.addEventListener('DOMContentLoaded', importTags);
 ```
 
-Para recuperar os dados você pode selecionar o elemento template e então pegar o seu contúdo:
+Este script espera que você esteja tentando importar apenas componentes para utilizar em sua pagina. Óbvio que é possível fazer download de qualquer tipo de template, entretanto será necessário utilizar manipulação manual para recuperar os valores de template. 
+
+É possível recuperar os valores de seus templates tentado algo assim:
 
 ```
-const template = document.querySelector(‘#myFirstWebcomponentID’);
-let content = template.content;
-```
+# Selecionar o elemento import que carregou o template desejado
+var link = document.querySelector('link[rel="import"]');
+# Acessar o conteúdo do seu import
+var content = link.import;
 
+# Pegar o Template importado
+var template = link.querySelector('template');
+
+# Pegar o conteúdo interno do template
+var content =  template.content;
+    
+```
 
 Para entender melhor como Html Imports funcionam por favor acesse minha publicação no Medium: [Web Components Nativos, o que tem pra janta?](https://medium.com/@evertonthepaula/web-components-nativos-o-que-tem-pra-janta-f2706e90a673
 )
+
+### Testes
+
+Você quer testar? Eu provo que fuciona, execute: ``npm i && npm run server``, acesse: http://localhost:3000/ e veja a mágica acontecer.
+
+Rodando teste dentro de um servidor para evitar problemas com CORS.

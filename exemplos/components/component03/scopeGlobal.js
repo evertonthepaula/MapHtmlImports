@@ -1,0 +1,1 @@
+console.log('%c Estamos no componente 03 e this é: \n', 'font-weight: bold;font-size: 24px;color: #ffade9;padding-bottom: 16px;', this);

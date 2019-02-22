@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Examplos</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body{
+            padding: 24px 10%;
+        }
+        h1{
+            padding: 24px;
+            text-align: center;
+        }
+        :root {
+            --cor: #ad00ff;
+        }
+        h3 {
+            color: var(--cor);
+            padding: 24px 8px;
+            margin: 8px;
+            border-left: 2px solid var(--cor);
+            border-bottom: 2px solid var(--cor);
+        }
+    </style>
+</head>
+
+<body>
+    <hr>
+    <h1>Olhe seu console!</h1>
+    <hr>
+
+    <h3>H3 fora do escopo de qualquer componente</h3>
+
+    <hr>
+
+    <custom-element data-mode="closed">
+        <h3>custom element 01 - fechado - h3 compartilhando escopo global para JS e CSS</h3>
+    </custom-element>
+
+    <custom-element02 data-mode="closed">
+        <h3>custom element 02 - fechado - h3 compartilhando escopo global para JS e CSS</h3>
+    </custom-element02>
+
+    <custom-element03 data-mode="closed">
+        <h3>custom element 03 - fechado - h3 compartilhando escopo global para JS e CSS</h3>
+    </custom-element03>
+
+    <custom-element04 data-mode="closed">
+        <h3>custom element 04 - fechado - h3 compartilhando escopo global para JS e CSS <br> tag incluida sozinha fora do array de componentes</h3>
+    </custom-element04>
+
+    <hr>
+
+    <h3>H3 fora do escopo de qualquer componente</h3>
+</body>
+
+<!-- CLASEE FOI INSERIDA MANUALMENTE, É EU SEI OQ UE ESTÁ PENSANDO -->
+<script>
+    class htmlImports {
+        constructor() {
+            this.testSupport();
+        }
+
+        testSupport() {
+            if (!'import' in document.createElement('link')) {
+                console.error(new Error('Your browser doesn’t support HTML Imports.'));
+                return false;
+            }
+        }
+
+        load(arrayPath) {
+            return arrayPath.map((obj) => this.createTag(obj));
+        }
+
+        createTag(obj) {
+            const tag = document.createElement('link');
+            tag.rel = 'import';
+            tag.href = obj.path;
+            tag.setAttribute('async', 'async');
+            tag.onload = function (e) { console.log('%c DEU CERTO!!!', 'font-weight: bold; font-size: 40px;color: red; padding-bottom: 24px; text-shadow: 3px 3px 0 rgb(217,31,38) , 6px 6px 0 rgb(226,91,14) , 9px 9px 0 rgb(245,221,8) , 12px 12px 0 rgb(5,148,68) , 15px 15px 0 rgb(2,135,206) , 18px 18px 0 rgb(4,77,145) , 21px 21px 0 rgb(42,21,113)'); };
+            tag.onerror = function (e) { console.warn('ZICOU!'); };
+            document.head.appendChild(tag);
+            return tag;
+        }
+    }
+</script>
+
+<!-- MESMO ASSIM, EU DISSE QUE FUNCIONAVA -->
+<script>
+    const docs = [
+        { path: '/components/component/index.html' },
+        { path: '/components/component02/index.html' },
+        { path: '/components/component03/index.html' }
+    ]
+
+    const importTags = (function (htmlImports) {
+        return htmlImports.load(docs);
+    }(new htmlImports));
+
+    window.addEventListener('DOMContentLoaded', importTags);
+
+    console.log('%c Você pode acessar todas as suas tags importadas, olha que lindo: \n', 'font-weight: bold;font-size: 24px;color: #ad00ff;padding-bottom: 16px;', importTags);
+
+    const importSingleTag = (function (htmlImports) {
+        return htmlImports.createTag({ path: '/components/component04/index.html' });
+    }(new htmlImports));
+
+    window.addEventListener('DOMContentLoaded', importSingleTag);
+
+    console.log('%c Você também pode acessar sua tag importada de forma individual, olha que lindo²: \n', 'font-weight: bold;font-size: 24px;color: #00ffad;padding-bottom: 16px;', importSingleTag);
+
+</script>
+
+</html>
