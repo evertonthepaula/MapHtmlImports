@@ -32,7 +32,6 @@ Este script espera que você esteja tentando importar apenas componentes para ut
 ```
 # Selecionar o elemento import que carregou o template desejado
 var link = document.querySelector('link[rel="import"]');
-
 # Acessar o conteúdo do seu import
 var content = link.import;
 
