@@ -144,7 +144,9 @@
         return htmlImports.createTag({ path: '/components/componentModule/define.js' });
     }(new htmlImports));
 
-    window.addEventListener('DOMContentLoaded', importSingleLink);
+    window.addEventListener('DOMContentLoaded', importSingleModule);
+
+    console.log('%c Você também pode acessar o modulo que foi importado, olha que lindo³: \n', 'font-weight: bold;font-size: 24px;color: #00ffad;padding-bottom: 16px;', importSingleModule);
 </script>
 
 </html>
