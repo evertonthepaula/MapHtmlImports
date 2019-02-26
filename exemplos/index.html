@@ -53,12 +53,16 @@
         <h3>custom element 04 - fechado - h3 compartilhando escopo global para JS e CSS <br> tag incluida sozinha fora do array de componentes</h3>
     </custom-element04>
 
+    <custom-element-by-module data-mode="closed">
+        <h3>custom-element-by-module - fechado -Este elemento foi importado utilizando javascript modules</h3>
+    </custom-element-by-module>
+
     <hr>
 
     <h3>H3 fora do escopo de qualquer componente</h3>
 </body>
 
-<!-- CLASEE FOI INSERIDA MANUALMENTE, É EU SEI OQ UE ESTÁ PENSANDO -->
+<!-- CLASEE FOI INSERIDA MANUALMENTE, É EU SEI O QUE ESTÁ PENSANDO -->
 <script>
     class htmlImports {
 
@@ -90,7 +94,7 @@
 
 
         defineTag(obj){
-            if(RegExp('(.html)$')){
+            if(RegExp('(.html)$').test(obj.path)){
                 const link = document.createElement('link');
                 link.rel = 'import';
                 link.href = obj.path;
@@ -98,9 +102,9 @@
                 return link;
             }
 
-            if(RegExp('(.js)$')){
+            if(RegExp('(.js)$').test(obj.path)){
                 const script = document.createElement('script');
-                script.type= 'text/javascript';
+                script.type = 'module';
                 script.src = obj.path;
                 
                 return script;
@@ -128,14 +132,19 @@
 
     console.log('%c Você pode acessar todas as suas tags importadas, olha que lindo: \n', 'font-weight: bold;font-size: 24px;color: #ad00ff;padding-bottom: 16px;', importTags);
 
-    const importSingleTag = (function (htmlImports) {
+    const importSingleLink = (function (htmlImports) {
         return htmlImports.createTag({ path: '/components/component04/index.html' });
     }(new htmlImports));
 
-    window.addEventListener('DOMContentLoaded', importSingleTag);
+    window.addEventListener('DOMContentLoaded', importSingleLink);
 
-    console.log('%c Você também pode acessar sua tag importada de forma individual, olha que lindo²: \n', 'font-weight: bold;font-size: 24px;color: #00ffad;padding-bottom: 16px;', importSingleTag);
+    console.log('%c Você também pode acessar sua tag importada de forma individual, olha que lindo²: \n', 'font-weight: bold;font-size: 24px;color: #00ffad;padding-bottom: 16px;', importSingleLink);
 
+    const importSingleModule = (function (htmlImports) {
+        return htmlImports.createTag({ path: '/components/componentModule/define.js' });
+    }(new htmlImports));
+
+    window.addEventListener('DOMContentLoaded', importSingleLink);
 </script>
 
 </html>
