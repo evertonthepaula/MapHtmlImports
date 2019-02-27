@@ -11,39 +11,46 @@ class htmlImports {
         }
     }
 
-    load(arrayPath) {
-        return arrayPath.map((obj) => this.createTag(obj));
+    importAll(arrayPath) {
+        return arrayPath.map(obj => this.handler(obj));
     }
 
-    createTag(obj) {
-        const tag = this.defineTag(obj);
+    handler(obj){
+        if (RegExp('(.html)$').test(obj.path)) {
+            return this.import(obj);
+        }
 
+        if (RegExp('(.js)$').test(obj.path)) {
+            return this.importModule(obj);
+        }
+
+        console.error(new TypeError('[HTML-Imports] - Is expected an ".html" or ".js" file, you must be check your path definition'));
+        return false;
+    }
+
+    import(obj) {
+        const tag = document.createElement('link');
+        
+        tag.rel = 'import';
+        tag.href = obj.path;
         tag.setAttribute('async', 'async');
-        tag.onload = obj.callbackLoaded;
+        tag.onload = obj.callbackSuccess;
+        tag.onerror = obj.callbackError;
+        document.head.appendChild(tag);
+    
+        return tag;
+    }
+
+    importModule(obj){
+        const tag = document.createElement('script');
+
+        tag.type = 'module';
+        tag.src = obj.path;
+        tag.setAttribute('async', 'async');
+        tag.onload = obj.callbackSuccess;
         tag.onerror = obj.callbackError;
         document.head.appendChild(tag);
         
         return tag;
-    }
-
-    defineTag(obj){
-        if(RegExp('(.html)$').test(obj.path)){
-            const link = document.createElement('link');
-            link.rel = 'import';
-            link.href = obj.path;
-        
-            return link;
-        }
-
-        if(RegExp('(.js)$').test(obj.path)){
-            const script = document.createElement('script');
-            script.type = 'module';
-            script.src = obj.path;
-            
-            return script;
-        }
-
-        console.error(new Error('Is expected an ".html" or ".js" file, you must be check your path definition'));
-        return false;
     }
 }

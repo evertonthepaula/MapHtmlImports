@@ -8,16 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
-        body{
+        body {
             padding: 24px 10%;
         }
-        h1{
+
+        h1 {
             padding: 24px;
             text-align: center;
         }
+
         :root {
             --cor: #ad00ff;
         }
+
         h3 {
             color: var(--cor);
             padding: 24px 8px;
@@ -50,7 +53,8 @@
     </custom-element03>
 
     <custom-element04 data-mode="closed">
-        <h3>custom element 04 - fechado - h3 compartilhando escopo global para JS e CSS <br> tag incluida sozinha fora do array de componentes</h3>
+        <h3>custom element 04 - fechado - h3 compartilhando escopo global para JS e CSS <br> tag incluida sozinha fora
+            do array de componentes</h3>
     </custom-element04>
 
     <custom-element-by-module data-mode="closed">
@@ -77,41 +81,47 @@
             }
         }
 
-        load(arrayPath) {
-            return arrayPath.map((obj) => this.createTag(obj));
+        importAll(arrayPath) {
+            return arrayPath.map(obj => this.handler(obj));
         }
 
-        createTag(obj) {
-            const tag = this.defineTag(obj);
+        handler(obj) {
+            if (RegExp('(.html)$').test(obj.path)) {
+                return this.import(obj);
+            }
 
+            if (RegExp('(.js)$').test(obj.path)) {
+                return this.importModule(obj);
+            }
+
+            console.error(new TypeError('[HTML-Imports] - Is expected an ".html" or ".js" file, you must be check your path definition'));
+            return false;
+        }
+
+        import(obj) {
+            const tag = document.createElement('link');
+
+            tag.rel = 'import';
+            tag.href = obj.path;
             tag.setAttribute('async', 'async');
-            tag.onload = function (e) { console.log('%c DEU CERTO!!!', 'font-weight: bold; font-size: 40px;color: red; padding-bottom: 24px; text-shadow: 3px 3px 0 rgb(217,31,38) , 6px 6px 0 rgb(226,91,14) , 9px 9px 0 rgb(245,221,8) , 12px 12px 0 rgb(5,148,68) , 15px 15px 0 rgb(2,135,206) , 18px 18px 0 rgb(4,77,145) , 21px 21px 0 rgb(42,21,113)'); };
-            tag.onerror = function (e) { console.warn('ZICOU!'); };
+            tag.onload = obj.callbackSuccess;
+            tag.onerror = obj.callbackError;
             document.head.appendChild(tag);
-            
+
             return tag;
         }
 
+        importModule(obj) {
+            const tag = document.createElement('script');
 
-        defineTag(obj){
-            if(RegExp('(.html)$').test(obj.path)){
-                const link = document.createElement('link');
-                link.rel = 'import';
-                link.href = obj.path;
-            
-                return link;
-            }
+            tag.type = 'module';
+            tag.src = obj.path;
+            tag.setAttribute('async', 'async');
+            tag.onload = obj.callbackSuccess;
+            tag.onerror = obj.callbackError;
+            document.head.appendChild(tag);
 
-            if(RegExp('(.js)$').test(obj.path)){
-                const script = document.createElement('script');
-                script.type = 'module';
-                script.src = obj.path;
-                
-                return script;
-            }
-
-            console.error(new Error('Is expected an ".html" or ".js" file, you must be check your path definition'));
-            return false;
+            return tag;
         }
     }
 </script>
@@ -125,7 +135,7 @@
     ]
 
     const importTags = (function (htmlImports) {
-        return htmlImports.load(docs);
+        return htmlImports.importAll(docs);
     }(new htmlImports));
 
     window.addEventListener('DOMContentLoaded', importTags);
@@ -133,7 +143,7 @@
     console.log('%c Você pode acessar todas as suas tags importadas, olha que lindo: \n', 'font-weight: bold;font-size: 24px;color: #ad00ff;padding-bottom: 16px;', importTags);
 
     const importSingleLink = (function (htmlImports) {
-        return htmlImports.createTag({ path: '/components/component04/index.html' });
+        return htmlImports.import({ path: '/components/component04/index.html' });
     }(new htmlImports));
 
     window.addEventListener('DOMContentLoaded', importSingleLink);
@@ -141,7 +151,7 @@
     console.log('%c Você também pode acessar sua tag importada de forma individual, olha que lindo²: \n', 'font-weight: bold;font-size: 24px;color: #00ffad;padding-bottom: 16px;', importSingleLink);
 
     const importSingleModule = (function (htmlImports) {
-        return htmlImports.createTag({ path: '/components/componentModule/define.js' });
+        return htmlImports.importModule({ path: '/components/componentModule/define.js' });
     }(new htmlImports));
 
     window.addEventListener('DOMContentLoaded', importSingleModule);

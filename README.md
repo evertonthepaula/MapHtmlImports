@@ -80,6 +80,6 @@ E então este script carrega a implementação do componente em "index.js"
 
 ### Testes
 
-Você quer testar? Eu provo que fuciona, execute: ``npm i && npm run server``, acesse: http://localhost:3000/ e veja a mágica acontecer.
+Você quer testar? Eu provo que fuciona, execute: ```npm i && npm run server```, acesse: http://localhost:3000/ e veja a mágica acontecer.
 
 Rodando teste dentro de um servidor para evitar problemas com CORS.
