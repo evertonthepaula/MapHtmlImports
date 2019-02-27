@@ -5,7 +5,7 @@ script para auxiliar projetos a criar componentes usando HTML imports.
 
 Você pode passar um array de objetos definindo o caminho de todos os templates que deseja carregar na pagina atual:
 
-```
+```javascript
 const docs = [{ path: 'root/path/template.html' }]
 
 const importTags = (function(htmlImports) {
@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', importTags);
 
 Ou também pode especificar um unico template que será carregado:
 
-```
+```javascript
 const importTags = (function(htmlImports) {
     return htmlImports.createTag({ path: 'root/path/template.html' });
 }(new htmlImports));
@@ -29,7 +29,7 @@ Este script espera que você esteja tentando importar apenas componentes para ut
 
 É possível recuperar os valores de seus templates tentado algo assim:
 
-```
+```javascript
 # Selecionar o elemento import que carregou o template desejado
 var link = document.querySelector('link[rel="import"]');
 # Acessar o conteúdo do seu import
