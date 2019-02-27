@@ -9,7 +9,7 @@ Você pode passar um array de objetos definindo o caminho de todos os templates 
 const docs = [{ path: 'root/path/template.html' }]
 
 const importTags = (function(htmlImports) {
-    return htmlImports.load(docs);
+    return htmlImports.importAll(docs);
 }(new htmlImports));
 
 window.addEventListener('DOMContentLoaded', importTags);
@@ -19,7 +19,7 @@ Ou também pode especificar um unico template que será carregado:
 
 ```javascript
 const importTags = (function(htmlImports) {
-    return htmlImports.createTag({ path: 'root/path/template.html' });
+    return htmlImports.import({ path: 'root/path/template.html' });
 }(new htmlImports));
 
 window.addEventListener('DOMContentLoaded', importTags);
@@ -53,18 +53,17 @@ Vamos com calma! em alguns lugares se lê que htmlImports estão "Obsoletos" que
 
 Mesmo no caso de html imports continuarem existindo como um elemento HTML, permitindo que por exemplo você carregue templates no seu documento como mostrado acima, eles não fazem mais parte da especificação de Web componets, por isto a implementação do script htmlImports foi alterada.
 
-
 Continuamos importando com o mesmo script:
 
 ```javascript
 const importModule = (function(htmlImports) {
-    return htmlImports.createTag({ path: 'root/path/module-definition.js' });
+    return htmlImports.importModule({ path: 'root/path/module-definition.js' });
 }(new htmlImports));
 
 window.addEventListener('DOMContentLoaded', importModule);
 ```
 
-Porém mudamos a implementação do component, eu sugiro carregar na pagina o script que define o componente, este script na verdade pode ser escritp em um js comum:
+Porém mudamos a implementação do component, eu sugiro carregar na pagina o script que define o componente, este script na verdade pode ser escrito em um js comum:
 
 ```javascript
 import CustomElementClassModule from './index.js'
@@ -80,6 +79,6 @@ E então este script carrega a implementação do componente em "index.js"
 
 ### Testes
 
-Você quer testar? Eu provo que fuciona, execute: ``npm i && npm run server``, acesse: http://localhost:3000/ e veja a mágica acontecer.
+Você quer testar? Eu provo que fuciona, execute: ```npm i && npm run server```, acesse: http://localhost:3000/ e veja a mágica acontecer.
 
 Rodando teste dentro de um servidor para evitar problemas com CORS.
