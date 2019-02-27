@@ -5,7 +5,7 @@ Lib para auxiliar projetos a criar componentes usando html imports.
 
 Você pode passar um array de objetos definindo o caminho de todos os templates que deseja carregar na pagina atual:
 
-```
+```javascript
 const docs = [{ path: 'root/path/template.html' }]
 
 const importTags = (function(htmlImports) {
@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', importTags);
 
 Ou também pode especificar um unico template que será carregado:
 
-```
+```javascript
 const importTags = (function(htmlImports) {
     return htmlImports.createTag({ path: 'root/path/template.html' });
 }(new htmlImports));
@@ -29,16 +29,17 @@ Este script espera que você esteja tentando importar apenas componentes para ut
 
 É possível recuperar os valores de seus templates tentado algo assim:
 
-```
-# Selecionar o elemento import que carregou o template desejado
+```javascript
+// Selecionar o elemento import que carregou o template desejado
 var link = document.querySelector('link[rel="import"]');
-# Acessar o conteúdo do seu import
+
+// Acessar o conteúdo do seu import
 var content = link.import;
 
-# Pegar o Template importado
+// Pegar o Template importado
 var template = link.querySelector('template');
 
-# Pegar o conteúdo interno do template
+// Pegar o conteúdo interno do template
 var content =  template.content;
     
 ```
@@ -55,7 +56,7 @@ Mesmo no caso de html imports continuarem existindo como um elemento HTML, permi
 
 Continuamos importando com o mesmo script:
 
-```
+```javascript
 const importModule = (function(htmlImports) {
     return htmlImports.createTag({ path: 'root/path/module-definition.js' });
 }(new htmlImports));
@@ -65,7 +66,7 @@ window.addEventListener('DOMContentLoaded', importModule);
 
 Porém mudamos a implementação do component, eu sugiro carregar na pagina o script que define o componente, este script na verdade pode ser escritp em um js comum:
 
-```
+```javascript
 import CustomElementClassModule from './index.js'
 
 if(!'customElements' in window) {
