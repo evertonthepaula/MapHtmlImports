@@ -47,9 +47,9 @@ var content =  template.content;
 Para entender melhor como Html Imports funcionam por favor acesse minha publicação no Medium: [Web Components Nativos, o que tem pra janta?](https://medium.com/@evertonthepaula/web-components-nativos-o-que-tem-pra-janta-f2706e90a673
 )
 
-#### HTML IMPORTS ARE DEPRECATED!!!! :scream:
+#### HTML IMPORTS IS DEPRECATED!!!! :scream:
 
-Vamos com calma! em alguns lugares se lê que htmlImports estão "Obsoletos" que é a forma de se retratar a elementos html da especificação atual que entraram em desuso, sendo que para versões anteriores utilizamos "depreciados", entretanto, quando fui buscar as informações na W3C não encontrei nada concreto sobre isso. 
+Vamos com calma! em alguns lugares se lê que htmlImports está "Obsoleto" que é a forma de se retratar a elementos html da especificação atual que entraram em desuso, sendo que para versões anteriores utilizamos "depreciado", entretanto, quando fui buscar as informações na W3C não encontrei nada concreto sobre isso. 
 
 Mesmo no caso de html imports continuarem existindo como um elemento HTML, permitindo que por exemplo você carregue templates no seu documento como mostrado acima, eles não fazem mais parte da especificação de Web componets, por isto a implementação do script htmlImports foi alterada.
 
